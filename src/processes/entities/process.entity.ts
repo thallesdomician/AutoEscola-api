@@ -31,7 +31,7 @@ export class Process extends BaseEntity {
 
   @OneToOne(() => Category)
   @JoinColumn()
-  @Field(() => String, { description: 'Foreign Key Category' })
+  @Field(() => Category, { description: 'Foreign Key Category' })
   category: Category;
 
   @Column('boolean', {

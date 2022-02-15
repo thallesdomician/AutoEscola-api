@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Payment } from 'src/payments/entities/payment.entity';
 import { Process } from 'src/processes/entities/process.entity';
+import { StudentProcedureProcess } from 'src/student-procedure-processes/entities/student-procedure-process.entity';
 import { Student } from 'src/students/entities/student.entity';
 import {
   Entity,
@@ -34,4 +35,13 @@ export class StudentProcess {
     description: 'Student of StudentProcess',
   })
   student: Student;
+
+  @OneToMany(
+    () => StudentProcedureProcess,
+    (studentProcedureProcess) => studentProcedureProcess.studentProcess,
+  )
+  @Field(() => [StudentProcedureProcess], {
+    description: 'List of StudentProcedureProcess',
+  })
+  studentProcedureProcesses: StudentProcedureProcess[];
 }

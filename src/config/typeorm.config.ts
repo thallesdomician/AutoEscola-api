@@ -3,15 +3,16 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { Address } from 'src/addresses/entities/address.entity';
-import { School } from 'src/schools/entities/school.entity';
-import { Process } from 'src/processes/entities/process.entity';
-import { Category } from 'src/categories/entities/category.entity';
-import { Procedure } from 'src/procedures/entities/procedure.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Student } from 'src/students/entities/student.entity';
-import { Payment } from 'src/payments/entities/payment.entity';
-import { StudentProcess } from 'src/student-processes/entities/student-process.entity';
+// import { Address } from 'src/addresses/entities/address.entity';
+// import { School } from 'src/schools/entities/school.entity';
+// import { Process } from 'src/processes/entities/process.entity';
+// import { Category } from 'src/categories/entities/category.entity';
+// import { Procedure } from 'src/procedures/entities/procedure.entity';
+// import { User } from 'src/users/entities/user.entity';
+// import { Student } from 'src/students/entities/student.entity';
+// import { Payment } from 'src/payments/entities/payment.entity';
+// import { StudentProcess } from 'src/student-processes/entities/student-process.entity';
+// import { StudentProcedureProcess } from 'src/student-procedure-processes/entities/student-procedure-process.entity';
 
 const PROD_ENV = 'production';
 
@@ -24,17 +25,19 @@ export default class TypeOrmConfig {
       username: configService.get('DATABASE_USER'),
       password: configService.get('DATABASE_PASSWORD'),
       database: configService.get('DATABASE_DATABASE'),
-      entities: [
-        Address,
-        School,
-        Category,
-        Process,
-        Procedure,
-        User,
-        StudentProcess,
-        Student,
-        Payment,
-      ],
+      // entities: [
+      //   Address,
+      //   School,
+      //   Category,
+      //   Process,
+      //   Procedure,
+      //   User,
+      //   StudentProcedureProcess,
+      //   StudentProcess,
+      //   Student,
+      //   Payment,
+      // ],
+      entities: ['dist/**/*.entity.js'],
       logging: true,
       logger: process.env.NODE_ENV === PROD_ENV ? 'file' : 'debug',
       synchronize: true,

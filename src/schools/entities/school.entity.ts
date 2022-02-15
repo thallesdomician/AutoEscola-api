@@ -29,7 +29,7 @@ export class School extends BaseEntity {
 
   @OneToOne(() => Address, { cascade: true })
   @JoinColumn()
-  @Field(() => String, { description: 'Foreign Key Address' })
+  @Field(() => Address, { description: 'Foreign Key Address' })
   address: Address;
 
   @OneToMany(() => Process, (process) => process.school)

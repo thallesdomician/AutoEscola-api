@@ -30,6 +30,6 @@ export class Student {
 
   @OneToOne(() => Address, { cascade: true })
   @JoinColumn()
-  @Field(() => String, { description: 'Foreign Key Address' })
+  @Field(() => Address, { description: 'Foreign Key Address' })
   address: Address;
 }

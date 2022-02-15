@@ -1,0 +1,357 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Address {
+  """Address Identifier uuid"""
+  id: String!
+
+  """Street, Avenue, Square place name"""
+  place: String!
+
+  """Place number"""
+  number: String!
+
+  """Place complement"""
+  complement: String!
+
+  """ZIP Code"""
+  cep: String!
+
+  """State UF"""
+  uf: String!
+}
+
+type Category {
+  """Category Identifier uuid"""
+  id: String!
+
+  """Name of Category"""
+  name: String!
+
+  """Enable of Categories to new Processes"""
+  isActive: Boolean!
+}
+
+type Procedure {
+  """Procedure Identifier uuid"""
+  id: String!
+
+  """Name of Procedure"""
+  name: String!
+
+  """Minimum repetitions of Procedure on Process"""
+  quantity: Int!
+
+  """Procedure is active to Process?"""
+  isActive: Boolean!
+
+  """Procedures of Procedure"""
+  process: Process!
+}
+
+type Payment {
+  """Payment Identifier uuid"""
+  id: String!
+
+  """StudentProcess of Payment"""
+  studentProcess: StudentProcess!
+
+  """Value of Process Paid by Studend"""
+  value: Float!
+
+  """Value of Process Paid by Studend"""
+  created_at: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type User {
+  """User Identifier uuid"""
+  id: ID
+
+  """unique username key to login"""
+  username: String!
+
+  """Encrypted password"""
+  password: String
+
+  """salt key to login"""
+  salt: String
+
+  """user login active"""
+  isActive: Boolean
+
+  """Date of Expiration Login"""
+  expiration: String
+}
+
+type Student {
+  """RG of Student"""
+  rg: String!
+
+  """CNH of Student"""
+  cnh: String!
+
+  """Birthdate od student"""
+  birthdate: DateTime!
+
+  """User responsible to login"""
+  user: User!
+
+  """List of StudentProcesses"""
+  studentProcesses: [StudentProcess!]!
+
+  """Foreign Key Address"""
+  address: Address!
+}
+
+type StudentProcedureProcess {
+  """StudentProcedureProcess Identifier uuid"""
+  id: String!
+
+  """StudentProcess of StudentProcedureProcess"""
+  studentProcess: StudentProcess!
+
+  """Foreign Key Process"""
+  process: Process!
+
+  """Quantity relized of process"""
+  quantity: Int!
+}
+
+type StudentProcess {
+  """StudentProcess Identifier uuid"""
+  id: String!
+
+  """Process of StudentProcess"""
+  process: Process!
+
+  """List of StudentProcesses"""
+  payments: [Payment!]!
+
+  """Student of StudentProcess"""
+  student: Student!
+
+  """List of StudentProcedureProcess"""
+  studentProcedureProcesses: [StudentProcedureProcess!]!
+}
+
+type Process {
+  """Process Identifier uuid"""
+  id: String!
+
+  """Name of Process"""
+  name: String!
+
+  """Value of Process"""
+  value: Float!
+
+  """Foreign Key Category"""
+  category: Category!
+
+  """Enable Process to new Students"""
+  isActive: Boolean!
+
+  """School"""
+  school: School!
+
+  """List of procedures"""
+  procedures: [Procedure!]!
+
+  """List of StudentProcess"""
+  studentProcesses: [StudentProcess!]!
+}
+
+type School {
+  """School Identifier uuid"""
+  id: String!
+
+  """Name of School"""
+  name: String!
+
+  """CNPJ identifier"""
+  cnpj: String!
+
+  """Foreign Key Address"""
+  address: Address!
+
+  """List of processes"""
+  processes: [Process!]!
+}
+
+type Query {
+  schools: [School!]!
+  school(id: Int!): School!
+  addresses: [Address!]!
+  address(id: Int!): Address!
+  processes: [Process!]!
+  process(id: Int!): Process!
+  categories: [Category!]!
+  category(id: Int!): Category!
+  procedures: [Procedure!]!
+  procedure(id: Int!): Procedure!
+  students: [Student!]!
+  student(id: Int!): Student!
+  users: [User!]!
+  user(id: Int!): User!
+  payments: [Payment!]!
+  payment(id: Int!): Payment!
+  studentProcesses: [StudentProcess!]!
+  studentProcess(id: Int!): StudentProcess!
+  studentProcedureProcesses: [StudentProcedureProcess!]!
+  studentProcedureProcess(id: Int!): StudentProcedureProcess!
+  login(username: String!, password: String!): User
+}
+
+type Mutation {
+  createSchool(createSchoolInput: CreateSchoolInput!): School!
+  updateSchool(updateSchoolInput: UpdateSchoolInput!): School!
+  removeSchool(id: Int!): School!
+  createAddress(createAddressInput: CreateAddressInput!): Address!
+  updateAddress(updateAddressInput: UpdateAddressInput!): Address!
+  removeAddress(id: Int!): Address!
+  createProcess(createProcessInput: CreateProcessInput!): Process!
+  updateProcess(updateProcessInput: UpdateProcessInput!): Process!
+  removeProcess(id: Int!): Process!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: Int!): Category!
+  createProcedure(createProcedureInput: CreateProcedureInput!): Procedure!
+  updateProcedure(updateProcedureInput: UpdateProcedureInput!): Procedure!
+  removeProcedure(id: Int!): Procedure!
+  createStudent(createStudentInput: CreateStudentInput!): Student!
+  updateStudent(updateStudentInput: UpdateStudentInput!): Student!
+  removeStudent(id: Int!): Student!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+  createPayment(createPaymentInput: CreatePaymentInput!): Payment!
+  updatePayment(updatePaymentInput: UpdatePaymentInput!): Payment!
+  removePayment(id: Int!): Payment!
+  createStudentProcess(createStudentProcessInput: CreateStudentProcessInput!): StudentProcess!
+  updateStudentProcess(updateStudentProcessInput: UpdateStudentProcessInput!): StudentProcess!
+  removeStudentProcess(id: Int!): StudentProcess!
+  createStudentProcedureProcess(createStudentProcedureProcessInput: CreateStudentProcedureProcessInput!): StudentProcedureProcess!
+  updateStudentProcedureProcess(updateStudentProcedureProcessInput: UpdateStudentProcedureProcessInput!): StudentProcedureProcess!
+  removeStudentProcedureProcess(id: Int!): StudentProcedureProcess!
+}
+
+input CreateSchoolInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateSchoolInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateAddressInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateAddressInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateProcessInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateProcessInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateProcedureInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateProcedureInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateStudentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateStudentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  """unique username key to login"""
+  username: String!
+
+  """unique username key to login"""
+  password: String!
+}
+
+input UpdateUserInput {
+  """unique username key to login"""
+  username: String
+
+  """unique username key to login"""
+  password: String
+  id: Int!
+}
+
+input CreatePaymentInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePaymentInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateStudentProcessInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateStudentProcessInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateStudentProcedureProcessInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateStudentProcedureProcessInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
